@@ -22,6 +22,7 @@ connectDb();
 app.use('/', require('./routes/home'));
 app.use('/register', require('./routes/register'));
 app.use('/login', require('./routes/login')); 
+app.use('/submit', require('./routes/submit'));
 
 app.listen(Port, () => {
   console.log('Server started on port '+ Port);

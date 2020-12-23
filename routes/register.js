@@ -1,23 +1,22 @@
 const express = require('express');
-const router = express.Router();
-
 const User = require('../models/User');
-
+const router = express.Router();
+var md5 = require('md5');
 router.get('/', (req, res) => {
   return res.render('register');
 });
 
 router.post('/', async (req, res) => {
-  const email  = req.body.username;
+  const email = req.body.username;
   try {
-    let user = await User.findOne({email});
+    let user = await User.findOne({ email });
     if (user) {
       return res.status(400).render('usernot');
     }
 
     user = new User({
       email: req.body.username,
-      password: req.body.password,
+      password: md5(req.body.password)
     });
     user.save((err) => {
       if (err) {
